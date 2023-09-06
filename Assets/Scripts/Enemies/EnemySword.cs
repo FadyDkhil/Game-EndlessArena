@@ -5,12 +5,20 @@ using UnityEngine;
 public class EnemySword : MonoBehaviour
 {
 
+    private GameObject stats;
+    private EnemyStats enemyStats;
+
     public float attackDamage;
     //public GameObject Player;
     private PlayerController pc;
     
     void Start()
     {
+        //Get enemystats
+        stats = GameObject.FindGameObjectWithTag("EnemyStats");
+        enemyStats = stats.GetComponent<EnemyStats>();
+        //STATS RETRIEVED
+        attackDamage = enemyStats.attackDamage;
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
 
         if (playerObject != null)
@@ -21,7 +29,6 @@ public class EnemySword : MonoBehaviour
         {
             Debug.LogError("No GameObject with tag 'Player' found in the scene.");
         }
-        attackDamage = 3.0f;
         //pc = Player.GetComponent<PlayerController>();
     }
 

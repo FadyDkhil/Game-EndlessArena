@@ -7,9 +7,8 @@ using UnityEngine.UI;
 public class EnemyAI : MonoBehaviour
 {
     public float chaseRange = 10f;
-    public float attackRange = 2f;
-    public float attackCooldown = 2f;
-    public float attackDamage;
+    public float attackRange = 2f; 
+    //public float attackDamage;
    // public Transform player;
     private string playerTag = "Player";
      private Transform player;
@@ -18,12 +17,24 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private float nextAttackTime = 0f;
     private float currentHealth;
-    public float maxHealth = 6.0f;
     private Slider healthSlider;
     private PlayerController pc;
+    private GameObject stats;
+    private EnemyStats enemyStats;
 
+    //GET FROM ENEMYSTATS
+    public float attackCooldown;
+    public float maxHealth;
     void Start()
     {
+        //Get enemystats
+        stats = GameObject.FindGameObjectWithTag("EnemyStats");
+        enemyStats = stats.GetComponent<EnemyStats>();
+        //Retrieving stats
+        attackCooldown = enemyStats.attackCooldown;
+        maxHealth = enemyStats.maxHealth;
+        //STATS RETRIEVED
+        
         currentHealth = maxHealth;
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyAnimator.SetBool("isMoving", false);

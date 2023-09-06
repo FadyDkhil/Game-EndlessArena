@@ -5,20 +5,29 @@ using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
+    
+    //other spot
+    private float randomNumber;
+    public GameObject otherSpot;
+    //STATS
+    private GameObject stats;
+    private EnemyStats enemyStats;
+    //end STATS
     public GameObject enemyPrefab;
     public Transform spawnPoint;
-    public float spawnInterval = 15f;
+    public float spawnInterval = 10f;
     public Text waveText;
     private int waveNumber;
 
     private void Start()
     {
+        stats = GameObject.FindGameObjectWithTag("EnemyStats");
+        enemyStats = stats.GetComponent<EnemyStats>();
         // Start spawning enemies
         waveNumber = 0;
         spawnInterval = 0f;
         StartCoroutine(SpawnEnemies());
     }
-
 
     IEnumerator SpawnEnemies()
     {
@@ -27,15 +36,25 @@ public class EnemySpawner : MonoBehaviour
             if(spawnInterval > 4.0f){
                 spawnInterval -= 1.5f;
             }else{
+                //show wave text
                 ShowWaveText();
                 //change stats
+                enemyStats.attackDamage++;
+                enemyStats.attackCooldown = enemyStats.attackCooldown - 0.1f;
+                enemyStats.maxHealth = enemyStats.maxHealth + 2.0f;
                 //spawn boss?
-                spawnInterval = 15f;
+                spawnInterval = 10f;
 
             }
             
+            if(Random.Range(0,2) == 1){
+                Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            }
+            else{
+                Instantiate(enemyPrefab, otherSpot.transform.position, otherSpot.transform.rotation);
+            }
             // Instantiate the enemy prefab at the specified spawn point
-            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            //Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
             // Wait for the specified interval before spawning the next enemy
             yield return new WaitForSeconds(spawnInterval);
