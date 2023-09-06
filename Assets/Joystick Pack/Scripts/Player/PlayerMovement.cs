@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
     public Animator _animation;
     public Rigidbody _rb;
     private Animator animator;
-    public GameObject Player;
-    private PlayerController pc;
+    // public GameObject Player;
+    // private PlayerController pc;
 
     void Start()
     {
-        pc = GetComponent<PlayerController>();
+        // pc = GetComponent<PlayerController>();
         animator = GetComponent<Animator>();
     }
     private void FixedUpdate(){
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
        
          if (inputDirection.magnitude > 0)
         {
-            pc.SwordAttacking = false;
+            // pc.SwordAttacking = false;
             // Calculate the rotation angle based on the input direction
             float targetRotationAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
 

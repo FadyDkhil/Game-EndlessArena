@@ -11,13 +11,16 @@ public class PlayerController : MonoBehaviour
     public Slider healthSlider;
     public Animator playerAnimator;
     public float attackDamage;
+    public Text scoreText;
+    public int score;
 
-    public bool SwordAttacking;
+    // public bool SwordAttacking;
 
     // Start is called before the first frame update
     void Start()
     {
-        SwordAttacking = false;
+        score = 0;
+        // SwordAttacking = false;
         currentHealth = maxHealth;
         playerAnimator = GetComponent<Animator>();
         attackDamage = 2.0f;
@@ -26,7 +29,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateHealthBar();
+        //UpdateHealthBar();
+        scoreText.text = score.ToString();
     }
     
     void UpdateHealthBar()
@@ -53,11 +57,12 @@ public class PlayerController : MonoBehaviour
     private void Die(){
         Destroy(this.gameObject);
     }
+    
     public void Attack()
     {
         // Trigger the attack animation
         playerAnimator.SetTrigger("Attack");
-        SwordAttacking = true;
+        // SwordAttacking = true;
 
         // Handle any attack-related logic here
         // For example, apply damage to enemies or other actions
