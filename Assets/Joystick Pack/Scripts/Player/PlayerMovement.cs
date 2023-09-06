@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator _animation;
     public Rigidbody _rb;
     private Animator animator;
+    public float sensibility = 6.6f;
     // public GameObject Player;
     // private PlayerController pc;
 
@@ -29,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Smoothly rotate the character towards the target rotation angle
             Quaternion targetRotation = Quaternion.Euler(0f, targetRotationAngle, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * 6.6f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * sensibility);
             animator.SetBool("isMoving", true);
             _rb.velocity = new Vector3(inputDirection.x * speed, _rb.velocity.y, inputDirection.z * speed);
         }

@@ -16,15 +16,23 @@ public class PlayerController : MonoBehaviour
     public GameObject lightHealth;
     // public bool SwordAttacking;
 
+    //stats
+    private GameObject stats;
+    private PlayerStats playerStats;
+
     // Start is called before the first frame update
     void Start()
     {
+        
+        stats = GameObject.FindGameObjectWithTag("PlayerStats");
+        playerStats = stats.GetComponent<PlayerStats>();
+        maxHealth = playerStats.maxHealth;
         lightHealth.SetActive(false);
         score = 0;
         // SwordAttacking = false;
         currentHealth = maxHealth;
         playerAnimator = GetComponent<Animator>();
-        attackDamage = 2.0f;
+        attackDamage = playerStats.attackDamage;
     }
 
     // Update is called once per frame
@@ -80,12 +88,12 @@ public class PlayerController : MonoBehaviour
     }
     public void Heal(float healingAmount)
     {
-        if(currentHealth+healingAmount > 99f){
-            currentHealth = 100f;
+        if(currentHealth+(maxHealth * healingAmount) > maxHealth - 1f){
+            currentHealth = maxHealth;
         }
         else
         {
-            currentHealth += healingAmount;
+            currentHealth += (maxHealth * healingAmount);
         }
         // Make sure health doesn't go below 0
         currentHealth = Mathf.Max(currentHealth, 0f);

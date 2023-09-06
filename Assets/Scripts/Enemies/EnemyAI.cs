@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class EnemyAI : MonoBehaviour
 {
+    //coin
+    private GameObject coinManager;
+    private CoinsValue cc;
+//
     public float chaseRange = 10f;
     public float attackRange = 2f; 
     //public float attackDamage;
@@ -29,6 +33,8 @@ public class EnemyAI : MonoBehaviour
     public float maxHealth;
     void Start()
     {
+        coinManager = GameObject.FindGameObjectWithTag("COINS");
+        cc = coinManager.GetComponent<CoinsValue>();
         //Get enemystats
         stats = GameObject.FindGameObjectWithTag("EnemyStats");
         enemyStats = stats.GetComponent<EnemyStats>();
@@ -98,6 +104,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void Die(){
+        cc.currentCoins += 1;
         pc.score++;
        // pc.scoreText.text = pc.score.ToString();
         Destroy(this.gameObject);

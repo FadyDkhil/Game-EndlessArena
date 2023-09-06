@@ -16,8 +16,8 @@ public class HealthPowerUp : MonoBehaviour
     {
         if( col.tag == "Player")
         {
-            pc.Heal(10f);
-            Debug.Log("Health + 10");
+            pc.Heal(0.15f);
+            Debug.Log("Health + 15%");
             Destroy(this.gameObject);
         }
     }

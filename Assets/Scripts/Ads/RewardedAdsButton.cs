@@ -12,12 +12,12 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     string _adUnitId = null; // This will remain null for unsupported platforms
  
     public GameObject CoinsManager;
-    private CoinsController c;
+    private CoinsValue c;
     [SerializeField]
     private float secondsToNextAd = 15.0f;
     void Awake()
     {   
-        c = CoinsManager.GetComponent<CoinsController>();
+        c = CoinsManager.GetComponent<CoinsValue>();
         // Get the Ad Unit ID for the current platform:
 #if UNITY_IOS
         _adUnitId = _iOSAdUnitId;

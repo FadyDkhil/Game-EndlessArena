@@ -9,10 +9,14 @@ public class Sword : MonoBehaviour
     private float damageBoostDuration = 15.0f;
     private bool isDamageBoosted = false;
     public GameObject swordUP;
+    private GameObject stats;
+    private PlayerStats playerStats;
 
     void Start()
     {
-        attackDamage = 2.0f;
+        stats = GameObject.FindGameObjectWithTag("PlayerStats");
+        playerStats = stats.GetComponent<PlayerStats>();
+        attackDamage = playerStats.attackDamage;
         swordUP.SetActive(false);
         originalAttackDamage = attackDamage;
     }
@@ -36,7 +40,14 @@ public class Sword : MonoBehaviour
         if (!isDamageBoosted)
         {
             // Increase attack damage by +5
-            attackDamage += 5.0f;
+            if(attackDamage * 2.5f < 10f)
+            {
+                attackDamage = 10f;
+            }
+            else
+            {
+                attackDamage += (attackDamage * 2.5f);
+            }
             isDamageBoosted = true;
             swordUP.SetActive(true);
 
