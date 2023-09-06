@@ -11,7 +11,7 @@ public class EnemyAI : MonoBehaviour
     //public float attackDamage;
    // public Transform player;
     private string playerTag = "Player";
-     private Transform player;
+    private Transform player;
      
     public Animator enemyAnimator;
     private NavMeshAgent navMeshAgent;
@@ -19,6 +19,8 @@ public class EnemyAI : MonoBehaviour
     private float currentHealth;
     private Slider healthSlider;
     private PlayerController pc;
+
+    //ENEMY STATS
     private GameObject stats;
     private EnemyStats enemyStats;
 
@@ -34,7 +36,7 @@ public class EnemyAI : MonoBehaviour
         attackCooldown = enemyStats.attackCooldown;
         maxHealth = enemyStats.maxHealth;
         //STATS RETRIEVED
-        
+
         currentHealth = maxHealth;
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyAnimator.SetBool("isMoving", false);

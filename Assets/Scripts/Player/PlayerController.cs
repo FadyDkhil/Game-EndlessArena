@@ -13,12 +13,13 @@ public class PlayerController : MonoBehaviour
     public float attackDamage;
     public Text scoreText;
     public int score;
-
+    public GameObject lightHealth;
     // public bool SwordAttacking;
 
     // Start is called before the first frame update
     void Start()
     {
+        lightHealth.SetActive(false);
         score = 0;
         // SwordAttacking = false;
         currentHealth = maxHealth;
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     private void Die(){
         Destroy(this.gameObject);
     }
-    
+
     public void Attack()
     {
         // Trigger the attack animation
@@ -77,4 +78,27 @@ public class PlayerController : MonoBehaviour
         // You can also play a sound or particle effect here
         }
     }
+    public void Heal(float healingAmount)
+    {
+        if(currentHealth+healingAmount > 99f){
+            currentHealth = 100f;
+        }
+        else
+        {
+            currentHealth += healingAmount;
+        }
+        // Make sure health doesn't go below 0
+        currentHealth = Mathf.Max(currentHealth, 0f);
+        UpdateHealthBar();
+        lightHealth.SetActive(true);
+        StartCoroutine(HealingLight());
+
+    }
+     IEnumerator HealingLight()
+    {
+        yield return new WaitForSeconds(0.75f);
+        lightHealth.SetActive(false);
+        
+    }
+
 }
